@@ -17,7 +17,7 @@ public class Punto4 {
         }
 
         String Mayor = edadMayor1>edadMayor2?"Edad mayor es:" + edadMayor1:"Edad mayor es:" + edadMayor2;
-        System.out.println(mayor);
+        System.out.println(Mayor);
 
     }
 }
