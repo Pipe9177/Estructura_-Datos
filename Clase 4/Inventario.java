@@ -49,7 +49,7 @@ public class Inventario {
     }
 
     // Informe del valor total calculando los productos ( precio * stock )
-    public void generarInformeValorTotal() {
+    public double generarInformeValorTotal() {
         double valorTotal = 0.0; // Variable para almacenar el valor total del inventario
         for (int i = 0; i < cuentas; i++) {
             if (productos[i] != null) {
@@ -60,6 +60,7 @@ public class Inventario {
         }
         System.out.println("Valor total del inventario: $" + valorTotal + "\n"); // Imprimir el valor total del
                                                                                  // inventario
+        return valorTotal;
     }
 
     // Retorna los productos con stock menor a 5 unidades
@@ -84,9 +85,10 @@ public class Inventario {
 
     // Metodo para ordenar los precios por forma descendente
     public void ordenarPorPrecioDescendente() {
-        if (cuentas <= -1) return; //Aqui no hay productos que ordenar
+        if (cuentas <= 1) return; //Si hay 0 o 1 productos, no es necesario ordenar
             for (int i = 0; i < cuentas; i++) { 
-                for (int j = 0; j < cuentas - i - 1; j++) {
+                for (int j = 0; j < cuentas - i - 1; j++) { //Se agrega el - i para optimizar el proceso, 
+                // ya que los últimos elementos ya estarán ordenados
                     if (productos[j] != null && productos[j + 1] != null && productos[j].getPrecio() < productos[j + 1].getPrecio()) {
                         // Si el precio del producto actual es menor que el precio del siguiente producto, intercambiarlos
                         // Intercambiar productos[j] y productos[j + 1]

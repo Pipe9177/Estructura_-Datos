@@ -30,14 +30,16 @@ public class EjecutarInv {
         // 5. Probar Informe de Valor Total
         double valorTotal = miInventario.generarInformeValorTotal();
         System.out.println("\nValor total del inventario: $" + valorTotal);
+        
 
         // 6. Probar Reto: Ordenamiento por precio (Burbuja Descendente)
         System.out.println("\n--- Inventario antes de ordenar (Precios) ---");
+        miInventario.mostrarInventario();
         // (Asumiendo que imprimes la lista)
         
+        System.out.println("\n--- Inventario ordenado por precio (Mayor a Menor) ---");
         miInventario.ordenarPorPrecioDescendente();
-        
-        System.out.println("--- Inventario ordenado por precio (Mayor a Menor) ---");
+        miInventario.mostrarInventario();
         // Aquí podrías imprimir para verificar el orden: 1500.0 -> 400.0 -> 85.0 -> 25.5
 
         // 7. Probar Productos Agotados (< 5 unidades)
@@ -45,7 +47,7 @@ public class EjecutarInv {
         Producto[] agotados = miInventario.obtenerProductosAgotados();
         for (Producto p : agotados) {
             if (p != null) {
-                System.out.println("- " + p.getNombre() + " (Stock actual: " + p.getCantidadStock() + ")");
+                System.out.println("- " + p.getNombre() + " (Stock actual: " + p.getStock() + ")");
             }
         }
     }
