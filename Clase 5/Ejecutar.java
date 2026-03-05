@@ -9,13 +9,14 @@ public class Ejecutar {
         int opcion = 0;
 
         while (true) {
-            System.out.println("\n-----Almacenar contenedores en buques disponibles----");
+            System.out.println("\n-----Logística Distribucciones JH----");
             System.out.println("\n1. Registrar buque en el muelle");
-            System.out.println("2. Generar contenedores aleatorios");
-            System.out.println("3. Mostrar patios para poder organizar los contenedores");
-            System.out.println("4. Ubicar contenedores en los  lugares disponibles");
-            System.out.println("5. Desembarcar debido a la llegada del destino");
-            System.out.println("6. Salir");
+            System.out.println("2. Seleccionar buque para almacenar");
+            System.out.println("3. Generar contenedores aleatorios");
+            System.out.println("4. Mostrar patios para poder organizar los contenedores");
+            System.out.println("5. Ubicar contenedores en los  lugares disponibles");
+            System.out.println("6. Desembarcar debido a la llegada del destino");
+            System.out.println("7. Salir");
             System.out.print("\nIngrese una opción: ");
 
             opcion = sp.nextInt();
@@ -24,22 +25,29 @@ public class Ejecutar {
                 case 1:
                     puerto.registrarBuque();
                     break;
-
                 case 2:
-                    puerto.aleatorios();
+                    puerto.seleccionar();
                     break;
                 case 3:
-                    puerto.mostrarPatios();
+                    puerto.aleatorios();
                     break;
                 case 4:
-                    puerto.ubicarContenedor();
+                    puerto.mostrarPatios();
                     break;
                 case 5:
+                    puerto.ubicarContenedor();
+                    break;
+                case 6:
+                    //Mostrar en pantalla si hay buques registrados o seleccionados antes de solicitar el destino para desembarcar
+                    if (puerto.buqueActivos == -1) {
+                        System.out.println("\n!Adios¡ Te vas sin contenedores");
+                        break; // Salir del caso si no hay buques registrados o seleccionados
+                    }
                     System.out.print("\nIngrese el destino para desembarcar: ");
                     String destino = sp.next(); // Leer el destino para desembarcar
                     puerto.desembarcar(destino);
                     break;
-                case 6:
+                case 7:
                     System.out.println("\nSaliendo del programa...");
                     sp.close();
                     return;
