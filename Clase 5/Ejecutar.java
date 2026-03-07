@@ -42,10 +42,11 @@ public class Ejecutar {
                     if (puerto.buqueActivos == -1) {
                         System.out.println("\n!Adios¡ Te vas sin contenedores");
                         break; // Salir del caso si no hay buques registrados o seleccionados
+                    } else {
+                    System.out.print("\nA que Ciudad/Pais acabas de llegar: ");
+                    String destinoLlegada = sp.next(); // Leer el destino para desembarcar
+                    puerto.desembarcar(destinoLlegada);
                     }
-                    System.out.print("\nIngrese el destino para desembarcar: ");
-                    String destino = sp.next(); // Leer el destino para desembarcar
-                    puerto.desembarcar(destino);
                     break;
                 case 7:
                     System.out.println("\nSaliendo del programa...");

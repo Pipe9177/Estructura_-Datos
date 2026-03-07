@@ -3,7 +3,6 @@ import java.util.Random;
 
 public class Puerto {
 
-    private Contenedor[][] patio = new Contenedor[10][10]; // Matriz que representa la cantidad de contenedores que
     private Buque[] muelles = new Buque[5]; // Cantidad de buques que estaran en el puerto
     private Scanner sc = new Scanner(System.in); // Scanner para leer la entrada del usuario con 10 contenedores
     private Random m = new Random(); // Random para generar 90 contenedores aleatorios
@@ -15,6 +14,8 @@ public class Puerto {
             System.out.println("\nNo ha seleccionado o esta registrado un buque");
             return; // Salir del método si no hay buques registrados o seleccionados
         }
+
+        Contenedor[][] patio = muelles[buqueActivos].getPatioUnico();
 
         int creados = 0; // Contador para llevar la cuenta de los contenedores generados
         System.err.println("\nGenerando 90 contenedores aleatorios");
@@ -69,6 +70,26 @@ public class Puerto {
             System.out.println("\nActualmente no hay buques registrados, porfavor registrar uno");
             return; // Salir del método si no hay buques registrados
         }
+
+        if(this.buqueActivos != -1){
+            System.out.println("\n-----AVISO------");
+            System.out.println("Cuentas actualmente con el Buque:" + muelles[buqueActivos].getId() + " seleccionado");
+            System.out.print("\nDesea cambiar de buque? Presione ( 1 ) si lo desea o presione ( 2 ) si desea continuar con el actual: ");
+            int revisar = sc.nextInt(); //Lee la decision del usuario
+
+            if ( revisar == 1 ){
+                System.out.println("\nEl buque " + muelles[buqueActivos].getId() + " ha sido liberado correctamente");
+                this.buqueActivos = -1; //Procede a liberar el buque antiguo
+                return; // Salir del método para seleccionar un nuevo buque
+            } else if ( revisar == 2 ){
+                    System.out.println("\nContinuando con el buque " + muelles[buqueActivos].getId() + " seleccionado");
+                return; // Salir del método para continuar con el buque actual
+                } else {
+                    System.out.println("\nOpcion no valida en el codigo");
+                    return; //Sale del metodo si la opcion ingresada ha sido incorrecta
+                } 
+        }
+
         System.out.print("\nIngrese el muelle que desea trabajar (0-4) o si desea regresarse ingrese (6):");
         int sel = sc.nextInt(); // Leer el muelle seleccionado por el usuario
 
@@ -90,6 +111,9 @@ public class Puerto {
             System.out.println("\nEstas pendejo o que mijo? como vas a ver el patio sin buque");
             return;
         }
+
+        Contenedor[][] patio = muelles[buqueActivos].getPatioUnico();
+
         System.out.println("\n----Patios del Puerto----");
         for (int i = 0; i < patio.length; i++) {
             for (int j = 0; j < patio[i].length; j++) {
@@ -109,6 +133,8 @@ public class Puerto {
             System.out.println("\nNo puede ubicar ningun contenedor sin antes seleccionar un buque");
             return;
         }
+
+        Contenedor[][] patio = muelles[buqueActivos].getPatioUnico();
 
         mostrarPatios(); // Muestra en pantalla patios para que el usuario pueda elegir donde ubicar el
                          // contenedor
@@ -153,11 +179,15 @@ public class Puerto {
         }
     }
 
-    public void desembarcar(String destino) {
+    public void desembarcar(String destinoIngresado) {
         if (buqueActivos == -1) {
             System.out.println("\nSuerte en tu viaje, no bajas ninguna pertenencia");
             return;
         }
+
+        Contenedor[][] patio = muelles[buqueActivos].getPatioUnico();
+
+        mostrarPatios(); //Referencia para que el usuario sepa que contenedor bajar
         // En este caso se necesita que el contenedor sea null para considerarlo
         // desembarcado, juntamente con el destino en el cual desembarcara
 
@@ -177,8 +207,15 @@ public class Puerto {
             System.out.println("\nNo hay contenedor en el espacio seleccionado");
             return;
         }
-        patio[fi][co] = null; // Desembarcar el contenedor seleccionado al establecer su posición en null
-        System.out.println("\nContenedor desembarcado exitosamente de la fila " + fi + " y columna " + co
-                + " con destino a " + destino);
+        if ( patio[fi][co].destino == destinoIngresado ){
+            String destinoFinal = patio[fi][co].destino; // Obtener el destino del contenedor seleccionado
+            patio[fi][co] = null; //Procede a desembarcar el contenido del buque
+            System.out.println("\nEl contenedor que selecciono fila " + fi + " y columna " + co + " bajara hacia: " + destinoFinal);
+            return;
+        } else {
+            System.out.println("\nEl contenedor seleccionado no va hacia el destino ingresado: " + destinoIngresado);
+            System.out.println("El contenedor seleccionado tiene como destino: " + patio[fi][co].destino);
+            return; //Sale del metodo si se equivoco de contenedor o destino
+        }
     }
 }

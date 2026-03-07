@@ -3,7 +3,7 @@ public class Contenedor {
     private int id;
     private double peso;
     private String origen;
-    private String destino; //He añadido esta variable para que haya un registro de a donde va el contenedor
+    public String destino; //He añadido esta variable para que haya un registro de a donde va el contenedor
     
     
     public Contenedor(int id, double peso, String origen, String destino) {

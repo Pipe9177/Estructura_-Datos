@@ -2,7 +2,7 @@ public class Buque {
     private int Id; // Identificador del buque
     private double Capacidad; // Capacidad del buque en toneladas
     private String Origen; // Lugar de origen del buque
-    
+    public Contenedor[][] patioUnico = new Contenedor[10][10];
     
     public Buque(int id, double capacidad, String origen) {
         Id = id;
@@ -40,12 +40,20 @@ public class Buque {
         Origen = origen;
     }
 
+      public Contenedor[][] getPatioUnico() {
+        return patioUnico;
+    }
+
+
+    public void setPatioUnico(Contenedor[][] patioUnico) {
+        this.patioUnico = patioUnico;
+    }
+
+
 
     @Override
     public String toString() {
         return "\nBuque [ Id del Buque: " + Id + ", Capacidad: " + Capacidad + ", Origen: " + Origen + "]";
     }
-
-    
 
 }
